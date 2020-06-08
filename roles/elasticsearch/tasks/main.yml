@@ -1,0 +1,48 @@
+# install Elasticsearch by OS_family
+- name: Install this role on {{ansible_os_family}}
+  include: "{{ansible_os_family}}.yml"
+
+# configure Elasticsearch
+- name: Create jetty User
+  user:
+    name: elasticsearch
+    shell: /usr/bin/bash
+    create_home: yes
+    owner: elasticsearch
+    group: elasticsearch
+
+- name: setting servcie
+  copy:
+    src: elasticsearch.service
+    dest: /lib/systemd/system/elasticsearch.service
+
+- name: set viturl memory
+  lineinfile:
+    create: yes
+    path: /etc/sysctl.conf
+    line: 'vm.max_map_count=655360'
+
+- name: Restart elasticsearch
+  service:
+    name: elasticsearch.service
+    state: restarted
+    enabled: yes
+
+# set soft link, -b cover the exist links
+# ln -sb src des
+- name: set soft link
+  shell: |
+    ln -sb /opt/elasticsearch  /data/wwwroot/elasticsearch
+    ln -sb /opt/elasticsearch/config /data/config/elasticsearch
+
+# Check version,
+# must use sudo sh -c to solve the no-root permission
+- block:
+  - name: Check Elasticsearch Version
+    shell: sudo sh -c "'rpm -qa|grep elasticsearch version' 1>> /data/logs/install_version.txt"
+
+# check service state
+- name: Check Elasticsearch Service
+  shell: systemctl status elasticsearch | grep Active*
+  register: check_rabbitmq_service
+  notify: check_rabbitmq_service
