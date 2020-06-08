@@ -46,11 +46,18 @@
     line: 'network.host: 0.0.0.0'
 
 # enable  initial_master_nodes
-- name: initial_master_nodes
+#- name: initial_master_nodes
+#  lineinfile:
+#    path: /etc/elasticsearch/elasticsearch.yml
+#    regexp: '#cluster.initial_master_nodes: ["node-1", "node-2"]'
+#    line: 'cluster.initial_master_nodes: node-1'
+
+# enable  memory_lock
+- name: memory_lock
   lineinfile:
     path: /etc/elasticsearch/elasticsearch.yml
-    regexp: '#cluster.initial_master_nodes: ["node-1", "node-2"]'
-    line: 'cluster.initial_master_nodes: node-1'
+    regexp: '#bootstrap.memory_lock: true'
+    line: 'bootstrap.memory_lock: true'
 
 - name: http.port
   lineinfile:
@@ -68,8 +75,8 @@
 # ln -sb src des
 - name: set soft link
   shell: |
-    ln -sb /opt/elasticsearch  /data/wwwroot/elasticsearch
-    ln -sb /opt/elasticsearch/config /data/config/elasticsearch
+    ln -sf /etc/elasticsearch  /data/config/
+    ln -sf /usr/share/elasticsearch /data/
 
 # Check version,
 # must use sudo sh -c to solve the no-root permission
