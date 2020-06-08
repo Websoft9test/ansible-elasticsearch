@@ -10,10 +10,10 @@
     create_home: yes
     group: elasticsearch
 
-- name: setting servcie
-  copy:
-    src: elasticsearch.service
-    dest: /lib/systemd/system/elasticsearch.service
+#- name: setting servcie
+#  copy:
+#    src: elasticsearch.service
+#    dest: /lib/systemd/system/elasticsearch.service
 
 - name: set viturl memory
   lineinfile:
