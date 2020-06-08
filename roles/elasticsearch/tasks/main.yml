@@ -46,11 +46,11 @@
     line: 'network.host: 0.0.0.0'
 
 # enable  initial_master_nodes
-#- name: initial_master_nodes
-#  lineinfile:
-#    path: /etc/elasticsearch/elasticsearch.yml
-#    regexp: '#cluster.initial_master_nodes: ["node-1", "node-2"]'
-#    line: 'cluster.initial_master_nodes: node-1'
+- name: initial_master_nodes
+  lineinfile:
+    path: /etc/elasticsearch/elasticsearch.yml
+    regexp: '#cluster.initial_master_nodes: ["node-1", "node-2"]'
+    line: 'cluster.initial_master_nodes: ["node-1"]'
 
 # enable  memory_lock
 #- name: memory_lock
