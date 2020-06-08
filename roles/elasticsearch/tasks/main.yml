@@ -53,11 +53,11 @@
 #    line: 'cluster.initial_master_nodes: node-1'
 
 # enable  memory_lock
-- name: memory_lock
-  lineinfile:
-    path: /etc/elasticsearch/elasticsearch.yml
-    regexp: '#bootstrap.memory_lock: true'
-    line: 'bootstrap.memory_lock: true'
+#- name: memory_lock
+#  lineinfile:
+#    path: /etc/elasticsearch/elasticsearch.yml
+#    regexp: '#bootstrap.memory_lock: true'
+#    line: 'bootstrap.memory_lock: true'
 
 - name: http.port
   lineinfile:
