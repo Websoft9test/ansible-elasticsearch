@@ -5,7 +5,7 @@
 - name: Setting source
   copy:
     src: es.repo
-    dest: /lib/systemd/system/es.repo
+    dest: /etc/yum.repos.d/es.repo
 
 - name: install elasticsearch
   shell: yum install elasticsearch -y
