@@ -8,7 +8,6 @@
     name: elasticsearch
     shell: /usr/bin/bash
     create_home: yes
-    owner: elasticsearch
     group: elasticsearch
 
 - name: setting servcie
