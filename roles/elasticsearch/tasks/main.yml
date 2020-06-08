@@ -3,7 +3,7 @@
   include: "{{ansible_os_family}}.yml"
 
 # configure Elasticsearch
-- name: Create jetty User
+- name: Create elasticsearch User
   user:
     name: elasticsearch
     shell: /usr/bin/bash
