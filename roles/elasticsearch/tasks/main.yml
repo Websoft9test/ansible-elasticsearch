@@ -80,5 +80,5 @@
 # check service state
 - name: Check Elasticsearch Service
   shell: systemctl status elasticsearch | grep Active*
-  register: check_rabbitmq_service
-  notify: check_rabbitmq_service
+  register: check_elasticsearch_service
+  notify: check_elasticsearch_service
