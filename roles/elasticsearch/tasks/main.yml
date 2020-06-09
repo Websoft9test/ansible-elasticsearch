@@ -46,24 +46,35 @@
     line: 'network.host: 0.0.0.0'
 
 # enable  initial_master_nodes
-- name: initial_master_nodes
-  lineinfile:
-    path: /etc/elasticsearch/elasticsearch.yml
-    regexp: '#cluster.initial_master_nodes: ["node-1", "node-2"]'
-    line: 'cluster.initial_master_nodes: node-1'
-
-# enable  memory_lock
-#- name: memory_lock
+#- name: initial_master_nodes
 #  lineinfile:
 #    path: /etc/elasticsearch/elasticsearch.yml
-#    regexp: '#bootstrap.memory_lock: true'
-#    line: 'bootstrap.memory_lock: true'
+#    regexp: '#cluster.initial_master_nodes: ["node-1", "node-2"]'
+#    line: 'cluster.initial_master_nodes: node-1'
+
+# enable  memory_lock
+- name: memory_lock
+  lineinfile:
+    path: /etc/elasticsearch/elasticsearch.yml
+    regexp: '#bootstrap.memory_lock: true'
+    line: 'bootstrap.memory_lock: true'
 
 - name: http.port
   lineinfile:
     path: /etc/elasticsearch/elasticsearch.yml
     regexp: '#http.port: 9200'
     line: 'http.port: 9200'
+
+- name: Insert ngnix service  password authority 
+  blockinfile:
+    path: /etc/security/limits.conf
+    block: |
+        * soft nofile 65536
+        * hard nofile 65536
+        * soft nproc 2048
+        * hard nproc 2048
+        * soft memlock unlimited
+        * hard memlock unlimited
 
 - name: Restart elasticsearch
   service:
