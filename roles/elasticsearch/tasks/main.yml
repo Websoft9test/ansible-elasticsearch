@@ -11,7 +11,6 @@
 - name: sysctl -p
   shell: sysctl -p
 
-
 # enable  ipaddress
 - name: enable ipaddress
   lineinfile:
@@ -23,7 +22,7 @@
 - name: initial_master_nodes
   lineinfile:
     path: /etc/elasticsearch/elasticsearch.yml
-    regexp: '#cluster.initial_master_nodes: ["node-1", "node-2"]'
+    create: yes
     line: 'cluster.initial_master_nodes: ["node-1", "node-2"]'
 
 - name: http.port
@@ -61,7 +60,7 @@
 # must use sudo sh -c to solve the no-root permission
 - block:
   - name: Check Elasticsearch Version
-    shell: sudo sh -c "'rpm -qa|grep elasticsearch version' 1>> /data/logs/install_version.txt"
+    shell: sudo sh -c "echo `rpm -qa|grep elasticsearch |sed -n 1p` 1>> /data/logs/install_version.txt"
 
 # check service state
 - name: Check Elasticsearch Service
