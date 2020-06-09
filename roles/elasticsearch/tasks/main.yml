@@ -65,6 +65,13 @@
     regexp: '#http.port: 9200'
     line: 'http.port: 9200'
 
+
+- name: bootstarp edit
+  lineinfile:
+    path: /etc/elasticsearch/elasticsearch.yml
+    line: 'bootstrap.system_call_filter: false'
+    create: yes
+
 - name: Insert ngnix service  password authority 
   blockinfile:
     path: /etc/security/limits.conf
